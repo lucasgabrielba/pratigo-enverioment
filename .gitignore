@@ -1,0 +1,14 @@
+.directory
+.idea
+persistent_data/
+data/
+custom-envs/
+repositories/
+.vagrant/
+services/
+*.log
+config.yaml
+config.yml
+config.env
+.docker/*
+config/ambiente-local/**/sentry.env

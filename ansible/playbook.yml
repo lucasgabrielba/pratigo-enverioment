@@ -1,0 +1,39 @@
+- name: Clone all Pratigo repositories
+  hosts: localhost
+  gather_facts: false
+  vars:
+    dest_dir: '{{ lookup("env", "REPODIR") }}'
+    token: '{{ lookup("env", "GITLAB_TOKEN") }}'
+  tasks:
+    - name: api
+      git:
+        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-api-laravel.git
+        dest: "{{dest_dir}}/api"
+        version: main
+        clone: yes
+        update: yes
+    
+    - name: gestor
+      git:
+        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-gestor.git
+        dest: "{{dest_dir}}/gestor"
+        version: main
+        clone: yes
+        update: yes
+
+    - name: pwa
+      git:
+        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-app-pwa.git
+        dest: "{{dest_dir}}/pwa"
+        version: main
+        clone: yes
+        update: yes
+
+    - name: socket
+      git:
+        repo: https://gitlab.com/lazaro-shev/pratigo-socketserver.git
+        dest: "{{dest_dir}}/socket"
+        version: main
+        clone: yes
+        update: yes
+        

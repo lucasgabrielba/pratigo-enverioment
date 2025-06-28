@@ -1,0 +1,31 @@
+networks:
+  proxy:
+    name: ${NETWORK}
+    external: true
+
+services:
+  db-api:
+    extends:
+      file: ${BASEDIR}/dockers/base/db-api.yml
+      service: db-api
+
+  api:
+    extends:
+      file: ${BASEDIR}/dockers/base/api.yml
+      service: api
+    
+  gestor:
+    extends:
+      file: ${BASEDIR}/dockers/base/gestor.yml
+      service: gestor
+
+  pwa:
+    extends:
+      file: ${BASEDIR}/dockers/base/pwa.yml
+      service: pwa
+    
+  socket:
+    extends:
+      file: ${BASEDIR}/dockers/base/socket.yml
+      service: socket
+    

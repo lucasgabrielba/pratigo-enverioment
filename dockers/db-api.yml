@@ -1,5 +1,5 @@
 services:
-    pratigo-db:
+    db-api:
         image: mariadb:10.6
         restart: always
         container_name: pratigo-db
@@ -13,7 +13,7 @@ services:
         ports:
             - "3306:3306"
         networks:
-            - pratigo
+            - proxy
  
     phpmyadmin:
         image: phpmyadmin
@@ -25,4 +25,4 @@ services:
         ports:
             - "8989:80"
         networks:
-            - pratigo
+            - proxy

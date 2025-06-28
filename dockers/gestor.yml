@@ -1,5 +1,5 @@
 services:
-  pratigo-gestor:
+  gestor:
     build:
       context: ${BASEDIR}/repositories/gestor
       dockerfile: ${BASEDIR}/repositories/gestor/Dockerfile.dev
@@ -17,3 +17,5 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - FAST_REFRESH=true
     command: pnpm dev
+    networks:
+      - proxy

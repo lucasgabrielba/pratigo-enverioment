@@ -1,5 +1,5 @@
 services:
-    pratigo-api-dev:
+    api:
         image: pratigo/laravel-api:latest
         container_name: pratigo-api
         extra_hosts:
@@ -7,9 +7,9 @@ services:
         ports:
             -   "8000:8000"
         networks:
-            - pratigo
+            - proxy
         depends_on:
-            - pratigo-api-builder
+            - api-builder
         env_file:
             - .env
         environment:
@@ -20,7 +20,7 @@ services:
             - .:/var/www/app
             - ./bootstrap/cache:/var/www/app/bootstrap/cache
 
-    pratigo-api-builder:
+    api-builder:
         build:
             context: .
             dockerfile: Dockerfile
@@ -35,8 +35,8 @@ services:
         image: pratigo/laravel-api:latest
         container_name: pratigo-api-builder
         networks:
-            - pratigo
+            - proxy
         restart: "no"
         entrypoint: ["echo", "finished"]
         depends_on:
-            - pratigo-db
+            - db-api

@@ -11,19 +11,19 @@ services:
         depends_on:
             - api-builder
         env_file:
-            - .env
+            - ${BASEDIR}/repositories/api/.env
         environment:
             - GITLAB_API_AUTH:$GITLAB_API_AUTH
             - PHP_IDE_CONFIG:"serverName=Docker"
         entrypoint: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
         volumes:
-            - .:/var/www/app
-            - ./bootstrap/cache:/var/www/app/bootstrap/cache
+            - ${BASEDIR}/repositories/api:/var/www/app
+            - ${BASEDIR}/repositories/api/bootstrap/cache:/var/www/app/bootstrap/cache
 
     api-builder:
         build:
-            context: .
-            dockerfile: Dockerfile
+            context: ${BASEDIR}/repositories/api
+            dockerfile: ${BASEDIR}/repositories/api/Dockerfile
             args:
                 DB_CONNECTION: sqlite
                 DB_DATABASE: ":memory:"
@@ -31,9 +31,9 @@ services:
                 NEW_RELIC_LICENSE_KEY: ""
                 NEW_RELIC_APPNAME: "dev-pratigo-api"
                 APP_ENV: local
-                GITLAB_API_AUTH: ${GITLAB_API_AUTH} #"user token"
+                GITLAB_API_AUTH: ${GITLAB_API_AUTH}
         image: pratigo/laravel-api:latest
-        container_name: pratigo-api-builder
+        container_name: api-builder
         networks:
             - proxy
         restart: "no"

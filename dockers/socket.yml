@@ -7,8 +7,8 @@ services:
         ports:
             -   "2000:2000"
         environment:
-            - PRATIGO_API=https://sandbox-api.pratigo.com.br
+            - PRATIGO_API=http://api:8000
         volumes:
             - ${BASEDIR}/repositories/socket:/app
         networks:
-            - proxy
+            -proxy

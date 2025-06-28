@@ -1,5 +1,5 @@
 services:
-    pratigo-websocket-server:
+    socket:
         image: pratigo/websocket-server:latest
         build: 
             context: ${BASEDIR}/repositories/socket
@@ -10,3 +10,5 @@ services:
             - PRATIGO_API=https://sandbox-api.pratigo.com.br
         volumes:
             - ${BASEDIR}/repositories/socket:/app
+        networks:
+            - proxy

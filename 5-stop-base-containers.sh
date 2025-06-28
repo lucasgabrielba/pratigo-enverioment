@@ -1,6 +1,6 @@
 #!/bin/bash
 
-containerIDs="db-ms-budget db-api-gateway db-ms-house mb-ms-notifier ms-customer ms-notifier ms-sales-and-stock ms-notification ms-payment"
+containerIDs="pratigo-db pratigo-api api-builder websocket-server pratigo-phpmyadmin"
 
 statusLived="live"
 statusdead="exited"

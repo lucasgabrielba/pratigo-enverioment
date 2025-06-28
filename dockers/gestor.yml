@@ -1,0 +1,19 @@
+services:
+  pratigo-gestor:
+    build:
+      context: ${BASEDIR}/repositories/gestor
+      dockerfile: ${BASEDIR}/repositories/gestor/Dockerfile.dev
+    ports:
+      - "3002:3002"
+    env_file:
+      - ${BASEDIR}/repositories/gestor/.env
+    restart: unless-stopped
+    volumes:
+      - ${BASEDIR}/repositories/gestor:/app:delegated
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - FAST_REFRESH=true
+    command: pnpm dev

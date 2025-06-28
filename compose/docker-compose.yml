@@ -6,26 +6,21 @@ networks:
 services:
   db-api:
     extends:
-      file: ${BASEDIR}/dockers/base/db-api.yml
+      file: ${BASEDIR}/dockers/db-api.yml
       service: db-api
 
   api:
     extends:
-      file: ${BASEDIR}/dockers/base/api.yml
+      file: ${BASEDIR}/dockers/api.yml
       service: api
     
   gestor:
     extends:
-      file: ${BASEDIR}/dockers/base/gestor.yml
+      file: ${BASEDIR}/dockers/gestor.yml
       service: gestor
 
-  pwa:
-    extends:
-      file: ${BASEDIR}/dockers/base/pwa.yml
-      service: pwa
-    
   socket:
     extends:
-      file: ${BASEDIR}/dockers/base/socket.yml
+      file: ${BASEDIR}/dockers/socket.yml
       service: socket
     

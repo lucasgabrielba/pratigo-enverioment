@@ -1,0 +1,12 @@
+services:
+    pratigo-websocket-server:
+        image: pratigo/websocket-server:latest
+        build: 
+            context: ${BASEDIR}/repositories/socket
+        container_name: websocket-server
+        ports:
+            -   "2000:2000"
+        environment:
+            - PRATIGO_API=https://sandbox-api.pratigo.com.br
+        volumes:
+            - ${BASEDIR}/repositories/socket:/app

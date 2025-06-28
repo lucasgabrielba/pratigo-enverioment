@@ -1,0 +1,28 @@
+services:
+    pratigo-db:
+        image: mariadb:10.6
+        restart: always
+        container_name: pratigo-db
+        environment:
+            MYSQL_ROOT_PASSWORD: pratigo
+            MYSQL_DATABASE: pratigo
+            MYSQL_USER: pratigo
+            MYSQL_PASSWORD: pratigo
+        volumes:
+            - db_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - pratigo
+ 
+    phpmyadmin:
+        image: phpmyadmin
+        container_name: pratigo-phpmyadmin
+        restart: unless-stopped
+        environment:
+            PMA_HOST: pratigo-db
+            MYSQL_ROOT_PASSWORD: pratigo
+        ports:
+            - "8989:80"
+        networks:
+            - pratigo

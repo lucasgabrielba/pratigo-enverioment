@@ -23,15 +23,7 @@ if [[ -z ${NETWORK_GATEWAY} ]]
     exit 1
 fi
 #
-mkdir -p $ROOTDIR/data
-mkdir -p $ROOTDIR/data/api-gateway
-mkdir -p $ROOTDIR/data/ms-house
-mkdir -p $ROOTDIR/data/ms-budget
-mkdir -p $ROOTDIR/data/ms-customer
-mkdir -p $ROOTDIR/data/ms-notifier
-mkdir -p $ROOTDIR/data/ms-notification
-mkdir -p $ROOTDIR/data/ms-sales-and-stock
-mkdir -p $ROOTDIR/data/ms-payment
+mkdir -p "$ROOTDIR/data"
 
 sudo systemctl stop apache &>/dev/null
 sudo systemctl stop apache2 &>/dev/null
@@ -40,7 +32,7 @@ sudo systemctl stop nginx &>/dev/null
 
 export COMPOSE_IGNORE_ORPHANS=true
 echo "Base"
-docker-compose --env-file $ROOTDIR/config.env -f $ROOTDIR/compose/base-docker-compose.yml up -d
+docker-compose --env-file "$ROOTDIR/config.env" -f "$ROOTDIR/compose/docker-compose.yml" up -d
 echo "DONE!"
 
-echo "before running shell script \"3\", check if all data bases has finished"
+echo "Containers started."

@@ -1,9 +1,9 @@
 #!/bin/bash
-REPODIR="/home/lucas/agileos-environment/repositories"
-BASEDIR="/home/lucas/agileos-environment"
+ROOTDIR=$(cd `dirname $0` && pwd -P)
+REPODIR="$ROOTDIR/repositories"
+BASEDIR="$ROOTDIR"
 NETWORK="agileos_net"
 NETWORK_GATEWAY="172.18.0.1"
-ROOTDIR=$(cd `dirname $0` && pwd -P)
 #
 if [ ! -f "$ROOTDIR/config.env" ]; then
 BYellow='\033[1;33m'
@@ -30,31 +30,20 @@ set -o nounset -o pipefail -o errexit
 # Load all variables from .env and export them all for Ansible to read
 set -o allexport
 source "$ROOTDIR/config.env"
-if test -z "$BASEDIR" 
-then
-  echo "BASEDIR=$ROOTDIR" >> "$ROOTDIR/config.env"
-  echo "POLINETNAME=$POLINETNAME" >> "$ROOTDIR/config.env"
-  echo "POLINETGATEWAY=$NETWORK_GATEWAY" >> "$ROOTDIR/config.env"
-fi
-if test -z "$REPODIR" 
-then
-  REPODIR="$ROOTDIR/repositories"
-  echo "REPODIR=$REPODIR" >> "$ROOTDIR/config.env"
-fi
+[ -z "$BASEDIR" ] && BASEDIR="$ROOTDIR" && echo "BASEDIR=$BASEDIR" >> "$ROOTDIR/config.env"
+[ -z "$REPODIR" ] && REPODIR="$ROOTDIR/repositories" && echo "REPODIR=$REPODIR" >> "$ROOTDIR/config.env"
 set +o allexport
 # Run Ansible
 git config --global --add safe.directory $REPODIR/api-gateway
-git config --global --add safe.directory $REPODIR/ms-house
-git config --global --add safe.directory $REPODIR/ms-budget
-git config --global --add safe.directory $REPODIR/ms-notifier
-git config --global --add safe.directory $REPODIR/ms-notification
-git config --global --add safe.directory $REPODIR/ms-ms-sales-and-stock
-git config --global --add safe.directory $REPODIR/ms-payment
+git config --global --add safe.directory $REPODIR/api
+git config --global --add safe.directory $REPODIR/gestor
+git config --global --add safe.directory $REPODIR/pwa
+git config --global --add safe.directory $REPODIR/socket
 
 ansible-playbook "$(dirname $0)/ansible/playbook.yml"
 
 # Install dependencies for each repository
-repositories=("api-gateway" "ms-house" "ms-notifier", "ms-customer", "ms-sales-and-stock", "ms-notification", "ms-payment")
+repositories=("api" "gestor" "pwa" "socket")
 for repo in "${repositories[@]}"; do
   cd "$REPODIR/$repo"
   echo instaling repositories dependences of "$repo"

@@ -74,61 +74,29 @@ O primeiro comando é responsável por preparar o ambiente para a execução do 
 ./1-prepare.sh
 ```
 
-### 6. Instale a Base
+### 6. Suba os Contêineres
 
-O próximo comando instala a base do AgileOS. Ele cria os contêineres e serviços de base necessários para o ambiente de desenvolvimento. Execute o seguinte comando:
+Este comando inicializa todos os contêineres necessários para o ambiente de desenvolvimento:
 
 ```bash
 ./2-install-base.sh
 ```
 
-### 7. Instale o AgileOS
+### 7. Pare os Contêineres
 
-Este comando instala o AgileOS propriamente dito, configurando os contêineres e serviços específicos para o projeto. Execute o seguinte comando:
-
-```bash
-./3-install-agileos.sh
-```
-
-### 8. Pare os Contêineres do AgileOS
-
-Se você deseja parar os contêineres do AgileOS, use o seguinte comando:
-
-```bash
-./4-stop-agileos-containers.sh
-```
-
-Este comando interromperá a execução dos contêineres do AgileOS, mas não os removerá.
-
-### 9. Pare os Contêineres da Base
-
-Para parar os contêineres de base, execute o seguinte comando:
+Para interromper os contêineres em execução, utilize:
 
 ```bash
 ./5-stop-base-containers.sh
 ```
 
-Isso interromperá a execução dos contêineres de base, mas não os removerá.
+### 8. Remova os Contêineres
 
-### 10. Remova os Contêineres do AgileOS
-
-Se você deseja remover completamente os contêineres do AgileOS, use o seguinte comando:
-
-```bash
-./6-remove-agileos-containers.sh
-```
-
-Isso eliminará permanentemente os contêineres do AgileOS.
-
-### 11. Remova os Contêineres de Base
-
-Para remover completamente os contêineres de base, execute o seguinte comando:
+Caso deseje remover completamente os contêineres criados, execute:
 
 ```bash
 ./7-remove-base-containers.sh
 ```
-
-Isso eliminará permanentemente os contêineres de base.
 
 Lembre-se de executar esses comandos na ordem apropriada, dependendo do que você deseja fazer com o ambiente AgileOS. Certifique-se de que o arquivo `config.env` esteja configurado corretamente antes de executar esses comandos, pois eles dependem das informações especificadas no arquivo de configuração.
 

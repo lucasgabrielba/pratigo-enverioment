@@ -1,106 +1,70 @@
-# Configuração do Repositório AgileOS Environment
+# Pratigo Environment
 
-Este guia irá orientá-lo na configuração do repositório `agileos-environment` para o ambiente AgileOS. O repositório `agileos-environment` é usado para configurar o ambiente de desenvolvimento e inclui informações sensíveis que não devem ser compartilhadas publicamente, como tokens de acesso e informações de rede.
+Este repositório prepara um ambiente de desenvolvimento para o conjunto de aplicações Pratigo utilizando Docker. Os scripts automatizam a criação da rede, o clone dos projetos e a inicialização dos serviços.
 
 ## Pré-requisitos
 
-Antes de começar, certifique-se de ter as seguintes informações e ferramentas disponíveis:
+- Docker e Docker Compose instalados;
+- Token de acesso ao GitLab (necessário para clonar os repositórios privados);
+- Node.js com npm ou pnpm para instalação das dependências.
 
-1. Uma conta no GitHub.
+## Configuração do ambiente
 
-2. Um token pessoal do GitHub para autenticação.
-
-3. Possui Docker e Docker Compose instalados.
-
-## Passos para Configuração
-
-Siga estas etapas para configurar o repositório `agileos-environment`:
-
-### 1. Clone o Repositório
-
-Clone o repositório `agileos-environment` em seu sistema local:
-
-```bash
-git clone https://github.com/lucasgabrielba/agileos-environment.git
-```
-
-### 2. Configure o arquivo `config.env`
-
-No diretório do repositório `agileos-environment`, você encontrará um arquivo chamado `config.example.txt`. Este arquivo contém configurações de exemplo que você deve personalizar para o seu ambiente. Renomeie o arquivo `config.example.txt` para `config.env`:
-
-```bash
-mv config.example.txt config.env
-```
-
-Agora, edite o arquivo `config.env` com um editor de texto para adicionar as informações corretas.
-
-### 3. Adicione as Informações da Env
-
-No arquivo `config.env`, você deve adicionar as seguintes informações:
+1. Clone este repositório.
+2. Copie o arquivo `.env` para `config.env` e edite os valores conforme o seu ambiente:
 
 ```dotenv
 NETWORK=agileos_net
 NETWORK_GATEWAY=172.27.0.1
-GITHUB_TOKEN=<SEU_TOKEN_DO_GITHUB>
+GITLAB_TOKEN=<SEU_TOKEN_DO_GITLAB>
+GITLAB_API_AUTH=<TOKEN_API_OPCIONAL>
 BASEDIR=/caminho/para/o/diretorio/base
-REPODIR=/caminho/para/o/diretorio/do/repo
+REPODIR=/caminho/para/o/diretorio/repositories
 ```
 
-Substitua `<SEU_TOKEN_DO_GITHUB>` pelo seu token pessoal do GitHub.
+- `NETWORK` e `NETWORK_GATEWAY` definem a rede Docker usada pelos contêineres.
+- `GITLAB_TOKEN` é utilizado pelo Ansible para clonar os projetos do Pratigo.
+- `GITLAB_API_AUTH` é repassado ao container da API.
+- `BASEDIR` representa o diretório raiz do ambiente.
+- `REPODIR` indica onde os repositórios clonados serão armazenados.
 
-- `NETWORK`: O nome da rede utilizada pelo ambiente AgileOS no docker.
-- `NETWORK_GATEWAY`: O endereço IP da gateway da rede docker.
-- `GITHUB_TOKEN`: Seu token pessoal do GitHub usado para autenticação.
-- `BASEDIR`: O caminho para o diretório base em seu sistema local.
-- `REPODIR`: O caminho para o diretório do repositório `agileos-environment` em seu sistema local.
+## Utilização dos scripts
 
-Certifique-se de que todas as informações estão corretas e que você não compartilhe o arquivo `config.env` publicamente, pois ele contém informações sensíveis.
+1. **Preparar o ambiente**
 
-### 4. Salve e Feche o Arquivo `config.env`
+   ```bash
+   ./1-prepare.sh
+   ```
 
-Depois de adicionar todas as informações necessárias, salve e feche o arquivo `config.env`.
+   Este script cria a rede, clona os repositórios (API, Gestor, PWA e Socket) e instala as dependências de cada projeto.
 
-Agora, o repositório `agileos-environment` está configurado corretamente para o seu ambiente AgileOS.
+2. **Subir os serviços**
 
-Lembre-se de nunca compartilhar seu token do GitHub ou informações sensíveis publicamente. Mantenha o arquivo `config.env` seguro e restrito apenas ao ambiente de desenvolvimento.
+   ```bash
+   ./2-install-base.sh
+   ```
 
-Claro, vou adicionar as instruções para os comandos que o usuário deve executar após configurar o arquivo `config.env`. Aqui estão os comandos completos e uma explicação de cada um:
+   Inicializa todos os contêineres definidos em `compose/docker-compose.yml`.
 
-### 5. Prepare o Ambiente
+3. **Parar os serviços**
 
-O primeiro comando é responsável por preparar o ambiente para a execução do AgileOS. Ele configura a rede Docker e cria alguns diretórios necessários. Execute o seguinte comando:
+   ```bash
+   ./5-stop-base-containers.sh
+   ```
 
-```bash
-./1-prepare.sh
-```
+4. **Remover os serviços**
 
-### 6. Suba os Contêineres
+   ```bash
+   ./7-remove-base-containers.sh
+   ```
 
-Este comando inicializa todos os contêineres necessários para o ambiente de desenvolvimento:
+Execute os scripts na ordem necessária para subir ou desmontar o ambiente.
 
-```bash
-./2-install-base.sh
-```
+## Estrutura do repositório
 
-### 7. Pare os Contêineres
+- `dockers/` contém as definições de cada serviço.
+- `compose/docker-compose.yml` orquestra os serviços.
+- `ansible/playbook.yml` automatiza o clone dos repositórios do Pratigo.
+- Scripts `*.sh` controlam a criação, inicialização, parada e remoção dos contêineres.
 
-Para interromper os contêineres em execução, utilize:
-
-```bash
-./5-stop-base-containers.sh
-```
-
-### 8. Remova os Contêineres
-
-Caso deseje remover completamente os contêineres criados, execute:
-
-```bash
-./7-remove-base-containers.sh
-```
-
-Lembre-se de executar esses comandos na ordem apropriada, dependendo do que você deseja fazer com o ambiente AgileOS. Certifique-se de que o arquivo `config.env` esteja configurado corretamente antes de executar esses comandos, pois eles dependem das informações especificadas no arquivo de configuração.
-
-## Considerações Finais
-
-A configuração do repositório `agileos-environment` é uma etapa importante para configurar um ambiente de desenvolvimento adequado para o AgileOS. Certifique-se de seguir este guia com cuidado e proteger suas informações sensíveis.
-# pratigo-enverioment
+Com essas etapas você terá o ambiente de desenvolvimento do Pratigo pronto para uso.

@@ -11,4 +11,4 @@ services:
         volumes:
             - ${BASEDIR}/repositories/socket:/app
         networks:
-            -proxy
+            - proxy

@@ -14,15 +14,14 @@ Este repositório prepara um ambiente de desenvolvimento para o conjunto de apli
 2. Copie o arquivo `.env` para `config.env` e edite os valores conforme o seu ambiente:
 
 ```dotenv
-NETWORK=agileos_net
-NETWORK_GATEWAY=172.27.0.1
+NETWORK=pratigo_net
 GITLAB_TOKEN=<SEU_TOKEN_DO_GITLAB>
 GITLAB_API_AUTH=<TOKEN_API_OPCIONAL>
 BASEDIR=/caminho/para/o/diretorio/base
 REPODIR=/caminho/para/o/diretorio/repositories
 ```
 
-- `NETWORK` e `NETWORK_GATEWAY` definem a rede Docker usada pelos contêineres.
+- `NETWORK` define o nome da rede Docker usada pelos contêineres. O gateway da rede será determinado automaticamente.
 - `GITLAB_TOKEN` é utilizado pelo Ansible para clonar os projetos do Pratigo.
 - `GITLAB_API_AUTH` é repassado ao container da API.
 - `BASEDIR` representa o diretório raiz do ambiente.

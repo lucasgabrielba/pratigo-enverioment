@@ -7,7 +7,7 @@
   tasks:
     - name: api
       git:
-        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-api-laravel.git
+        repo: https://oauth2:{{token}}@gitlab.com/lazaro-shev/pratigo-api-laravel.git
         dest: "{{base_dir}}/repositories/api"
         version: main
         clone: yes
@@ -15,7 +15,7 @@
     
     - name: gestor
       git:
-        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-gestor.git
+        repo: https://oauth2:{{token}}@gitlab.com/lazaro-shev/pratigo-gestor.git
         dest: "{{base_dir}}/repositories/gestor"
         version: main
         clone: yes
@@ -23,7 +23,7 @@
 
     - name: pwa
       git:
-        repo: https://{{token}}@gitlab.com/lazaro-shev/pratigo-app-pwa.git
+        repo: https://oauth2:{{token}}@gitlab.com/lazaro-shev/pratigo-app-pwa.git
         dest: "{{base_dir}}/repositories/pwa"
         version: main
         clone: yes
@@ -31,7 +31,7 @@
 
     - name: socket
       git:
-        repo: https://gitlab.com/lazaro-shev/pratigo-socketserver.git
+        repo: https://oauth2:{{token}}@gitlab.com/lazaro-shev/pratigo-socketserver.git
         dest: "{{base_dir}}/repositories/socket"
         version: main
         clone: yes

@@ -1,7 +1,7 @@
 #!/bin/bash
 ROOTDIR=$(cd `dirname $0` && pwd -P)
-NETWORK="agileos_net"
-NETWORK_GATEWAY="172.18.0.1"
+NETWORK="pratigo_net"
+# Gateway será detectado automaticamente
 #
 if [ ! -f "$ROOTDIR/config.env" ]; then
 BYellow='\033[1;33m'

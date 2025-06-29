@@ -3,6 +3,9 @@ networks:
     name: ${NETWORK}
     external: true
 
+volumes:
+  db_data:
+
 services:
   db-api:
     extends:
@@ -13,6 +16,11 @@ services:
     extends:
       file: ${BASEDIR}/dockers/api.yml
       service: api
+
+  api-builder:
+    extends:
+      file: ${BASEDIR}/dockers/api.yml
+      service: api-builder
     
   gestor:
     extends:
